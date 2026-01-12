@@ -1,11 +1,8 @@
 import axios from "axios";
 
 const API = axios.create({
-  baseURL: "https://student-management-application-5i4k.onrender.com",
+  baseURL: "https://student-management-application-5i4k.onrender.com/api/users",
 });
-
-
-
 
 // token auto attach
 API.interceptors.request.use((req) => {
@@ -15,3 +12,4 @@ API.interceptors.request.use((req) => {
 });
 
 export default API;
+

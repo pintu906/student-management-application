@@ -17,9 +17,10 @@ const Signup = () => {
     setForm({ ...form, [e.target.name]: e.target.value });
   };
 
-  const handleSignup = async () => {
+  const handleSignup = async (e) => {
+    e.preventDefault(); // 🔥 important
     try {
-      await API.post("/register", form); // ✅ correct now
+      await API.post("/register", form);
       alert("Registered Successfully ✅");
       navigate("/");
     } catch (err) {
@@ -32,16 +33,18 @@ const Signup = () => {
       <div className="auth-card">
         <h2>Create Account</h2>
 
-        <input name="name" placeholder="Full Name" onChange={handleChange} />
-        <input name="email" placeholder="Email" onChange={handleChange} />
-        <input name="password" type="password" placeholder="Password" onChange={handleChange} />
+        <form onSubmit={handleSignup}>
+          <input name="name" placeholder="Full Name" onChange={handleChange} required />
+          <input name="email" type="email" placeholder="Email" onChange={handleChange} required />
+          <input name="password" type="password" placeholder="Password" onChange={handleChange} required />
 
-        <select name="role" className="optional" onChange={handleChange}>
-          <option value="admin">Admin</option>
-          <option value="student">Student</option>
-        </select>
+          <select name="role" className="optional" onChange={handleChange}>
+            <option value="admin">Admin</option>
+            <option value="student">Student</option>
+          </select>
 
-        <button onClick={handleSignup}>Signup</button>
+          <button type="submit">Signup</button>
+        </form>
 
         <p>
           Already have account? <Link to="/">Login</Link>

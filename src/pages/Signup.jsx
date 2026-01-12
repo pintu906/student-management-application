@@ -10,7 +10,7 @@ const Signup = () => {
     name: "",
     email: "",
     password: "",
-    role: "admin"
+    role: "admin",
   });
 
   const handleChange = (e) => {
@@ -18,7 +18,8 @@ const Signup = () => {
   };
 
   const handleSignup = async (e) => {
-    e.preventDefault(); // 🔥 important
+    e.preventDefault(); // 🔥 page reload stop
+
     try {
       await API.post("/register", form);
       alert("Registered Successfully ✅");
@@ -34,11 +35,33 @@ const Signup = () => {
         <h2>Create Account</h2>
 
         <form onSubmit={handleSignup}>
-          <input name="name" placeholder="Full Name" onChange={handleChange} required />
-          <input name="email" type="email" placeholder="Email" onChange={handleChange} required />
-          <input name="password" type="password" placeholder="Password" onChange={handleChange} required />
+          <input
+            name="name"
+            placeholder="Full Name"
+            value={form.name}
+            onChange={handleChange}
+            required
+          />
 
-          <select name="role" className="optional" onChange={handleChange}>
+          <input
+            name="email"
+            type="email"
+            placeholder="Email"
+            value={form.email}
+            onChange={handleChange}
+            required
+          />
+
+          <input
+            name="password"
+            type="password"
+            placeholder="Password"
+            value={form.password}
+            onChange={handleChange}
+            required
+          />
+
+          <select name="role" value={form.role} onChange={handleChange}>
             <option value="admin">Admin</option>
             <option value="student">Student</option>
           </select>
